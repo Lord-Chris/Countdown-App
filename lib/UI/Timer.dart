@@ -1,40 +1,77 @@
 import 'package:flutter/material.dart';
+import '../services/events.dart';
+import 'dart:async';
 
-class Timer extends StatefulWidget {
+class TimerWidget extends StatefulWidget {
   final String title;
-  final int counter;
-  Timer(this.title, this.counter);
+  final double dTime;
+  final int time;
+  final int division;
+  final Duration duration;
+
+  TimerWidget({
+    this.title,
+    this.time,
+    this.division,
+    this.duration,
+    this.dTime,
+  });
+
   @override
-  _TimerState createState() => _TimerState();
+  _TimerWidgetState createState() => _TimerWidgetState();
 }
 
-class _TimerState extends State<Timer> with SingleTickerProviderStateMixin{
-  Animation _animation;
-  AnimationController _animationController;
+class _TimerWidgetState extends State<TimerWidget> {
+  Timer _timer;
+  dynamic start;
+
+  void startTimer() {
+    start = widget.time ?? widget.dTime;
+    _timer = Timer.periodic(widget.duration, (Timer time) {
+      setState(() {
+        if (start < 1) {
+          time.cancel();
+        } else {
+          start = start - 1;
+        }
+      });
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this,duration: Duration(minutes: widget.counter));
-    _animation = Tween<double>(begin: 1, end: 0).animate(_animationController);
-    _animationController.forward();
-    _animationController.addListener((){setState(()=>_animation.value);});
+    startTimer();
   }
+
   @override
   void dispose() {
-    _animationController.dispose();
+    _timer.cancel();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      child: Column(
-        children: <Widget>[
-          Text('${_animation.value*widget.counter}',style: TextStyle(color: Colors.white),),
-          Text('${widget.title}'),
-        ],
-      )
+    //print(start % widget.division/7);
+    return Column(
+      children: <Widget>[
+        Text(
+          '${widget.title}',
+          style: TextStyle(
+            fontFamily: 'fantasy',
+            fontStyle: FontStyle.italic,
+            fontSize: 18.0,
+          ),
+        ),
+        Text(
+          '${start % widget.division.toInt()}',
+          style: TextStyle(
+            fontFamily: 'fantasy',
+            fontStyle: FontStyle.italic,
+            fontSize: 18.0,
+          ),
+        ),
+      ],
     );
   }
 }

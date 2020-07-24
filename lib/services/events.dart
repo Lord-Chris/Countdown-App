@@ -1,70 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-List name = [];
-List des = [];
-List date = [];
-List duration = [];
 
+List<String> name = [];
+List<String> des = [];
+List<DateTime> date = [];
+List<Duration> duration = [];
 
-getDifference(a) {
-  DateTime eventDate = DateFormat('EEEE MMMM d, yyyy.').parse(a);
-  DateTime currentDate = DateTime.now();
-  Duration difference = eventDate.difference(currentDate);
-  return difference.inMinutes;
+class Events {
+  static Future<Duration> getDifference(DateTime a) async{
+    //DateTime eventDate = DateFormat('yyyy MM d').parse(a.toString().substring(0,10));
+    DateTime currentDate = DateTime.now();
+    Duration difference = a.difference(currentDate);
+    return difference;
+  }
+
+  static Future<void> addEvent({n, de, da, du, index}) async{
+    name.add(n);
+    des.add(de);
+    date.add(da);
+    duration.add(du);
+    //print(name.length);
+  }
+
+  static Future<void> updateEvent({n, de, da, du, index}) async{
+    name[index] = n;
+    des[index] = de;
+    date[index] = da;
+    duration[index] = du;
+    //print('$name, $des, $date, $index');
+  }
+
+  static Future<void> deleteEvent(index) async{
+    name.remove(name[index]);
+    des.remove(des[index]);
+    date.remove(date[index]);
+    duration.remove(duration[index]);
+  }
+
+  static Future<int> getIndex({n})async {
+    int index;
+    index = name.length;
+    print(index);
+    return index;
+  }
 }
 
-addEvent({n, de, da, du, index}) {
-  name.add(n);
-  des.add(de);
-  date.add(da);
-  duration.add(du);
-  //print(name.length);
-}
-updateEvent({n, de, da, du, index}){
-  name[index] = n;
-  des[index] = de;
-  date[index] = da;
-  duration[index]= du;
-  //print('$name, $des, $date, $index');
-}
-
-deleteEvent(index){
-  name.remove(name[index]);
-  des.remove(des[index]);
-  date.remove(date[index]);
-  duration.remove(duration[index]);
-}
-
-getIndex({n}){
-  int index;
-  index = name.length;
-  print(index);
-}
-
-
-
-deletePage(){
+deletePage() {
   return Scaffold(
     appBar: AppBar(
       leading: IconButton(
         icon: Icon(Icons.arrow_back),
-        onPressed: (){},
+        onPressed: () {},
       ),
       title: Text('Select Events to delete'),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.delete_forever),
-          onPressed: (){},
+          onPressed: () {},
         )
       ],
     ),
     body: Container(
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage('assets/light.png'), fit: BoxFit.cover),
+        image: DecorationImage(
+            image: AssetImage('assets/light.png'), fit: BoxFit.cover),
       ),
       child: ListView.builder(
         itemCount: name.length,
-        itemBuilder: (context,index){
+        itemBuilder: (context, index) {
           return Card(
             child: Column(
               children: <Widget>[
@@ -84,10 +87,6 @@ deletePage(){
     ),
   );
 }
-
-
-
-
 
 /*
 
