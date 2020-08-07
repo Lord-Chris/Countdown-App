@@ -108,10 +108,10 @@ class _ListOfEventsState extends State<ListOfEvents> {
                               ),
                             ),
                             TimerWidget(
-                              title: 'Secs',
-                              time: Events.events[index].duration.inSeconds,
+                              title: 'Mins',
+                              time: Events.events[index].duration.inMinutes,
                               division: 60,
-                              duration: Duration(seconds: 1),
+                              duration: Duration(minutes: 1),
                             ),
                           ],
                         ),

@@ -7,7 +7,6 @@ class Event {
   String name;
   String description;
   DateTime date;
-  // Duration _duration;
 
   Event({this.name, this.description, this.date});
   

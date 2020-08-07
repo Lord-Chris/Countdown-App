@@ -51,7 +51,6 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //print(start % widget.division/7);
     return Column(
       children: <Widget>[
         Text(

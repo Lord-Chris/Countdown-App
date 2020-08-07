@@ -1,4 +1,3 @@
-import 'package:countdown_app/UI/Timer.dart';
 import 'package:countdown_app/app/router.dart';
 import 'package:flutter/material.dart';
 import 'package:countdown_app/services/events.dart';
@@ -19,12 +18,13 @@ class _ViewEventState extends State<ViewEvent> {
     DateFormat _eventFormat = DateFormat('EEEE MMMM d, yyyy.');
     int _index = widget.index;
     String _eventDate = _eventFormat.format(Events.events[_index].date);
-    DateTime _time = Events.events[_index].date;
-    dynamic _duration = Events.events[_index].duration;
+    // DateTime _time = Events.events[_index].date;
+    // dynamic _duration = Events.events[_index].duration;
 
     return WillPopScope(
-      onWillPop: () async{
-        Navigator.pushNamedAndRemoveUntil(context,Routes.listOfEventsRoute, (Route<dynamic> route) => false);
+      onWillPop: () async {
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.listOfEventsRoute, (Route<dynamic> route) => false);
         return true;
       },
       child: Scaffold(
@@ -38,25 +38,7 @@ class _ViewEventState extends State<ViewEvent> {
               child: IconButton(
                 onPressed: () async {
                   Navigator.pushReplacementNamed(context, Routes.addEvent,
-                      arguments: _index
-                      // {
-                      // 'eventName': name[_index],
-                      // 'eventDescription': des[_index],
-                      // 'eventDate': date[_index],
-                      // 'index': _index
-                      // }
-                      );
-                  // setState(() {
-                  //   // newData = {
-                  //   //   'eventName': result['eventName'],
-                  //   //   'eventDescription': result['eventDescription'],
-                  //   //   'eventDate': result['eventDate']
-                  //   // };
-                  //   // //print('oldDuran ffffis ${duration[index]}');
-                  //   //int stuff = await Events.getDifference(newData['eventDate']);
-                  //   //duration[index] = stuff;
-                  //   //print('newDuran vvvvvis ${duration[index]}');
-                  // });
+                      arguments: _index);
                 },
                 icon: Icon(Icons.edit),
               ),
@@ -80,7 +62,6 @@ class _ViewEventState extends State<ViewEvent> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    //Text('Event Name:'),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -136,51 +117,6 @@ class _ViewEventState extends State<ViewEvent> {
                     Text(
                       _eventDate,
                       style: TextStyle(fontSize: 25.0, color: Colors.grey[850]),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          'Time left: ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'fantasy',
-                            fontStyle: FontStyle.italic,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                        Spacer(),
-                        Expanded(
-                          child: TimerWidget(
-                            title: 'Wks',
-                            dTime: Events.events[_index].date.difference(DateTime.now()).inDays,
-                            division: 168,
-                            duration: Duration(days: 7),
-                          ),
-                        ),
-                        Expanded(
-                          child: TimerWidget(
-                            title: 'Days',
-                            time: Events.events[_index].duration.inDays,
-                            division: 24,
-                            duration: Duration(days: 1),
-                          ),
-                        ),
-                        Expanded(
-                          child: TimerWidget(
-                            title: 'Hrs',
-                            time: Events.events[_index].duration.inHours,
-                            division: 60,
-                            duration: Duration(hours: 1),
-                          ),
-                        ),
-                        TimerWidget(
-                          title: 'Secs',
-                          time: Events.events[_index].duration.inSeconds,
-                          division: 60,
-                          duration: Duration(seconds: 1),
-                        ),
-                      ],
                     ),
                   ],
                 ),

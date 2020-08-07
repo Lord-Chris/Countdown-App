@@ -29,10 +29,10 @@ class _AddEventState extends State<AddEvent> {
   String _eventName;
   String _eventDesc;
   DateTime _eventDate;
-  Duration _difference;
+
+  
   @override
   Widget build(BuildContext context) {
-    //print(widget.index);
     return WillPopScope(
       onWillPop: () async {
         if (widget.index != null) {
@@ -79,11 +79,10 @@ class _AddEventState extends State<AddEvent> {
                     padding: const EdgeInsets.fromLTRB(30.0, 0, 0, 0),
                     child: TextFormField(
                       maxLength: 30,
-                      //controller: TextEditingController(text: _eventName),
                       style: _textboxStyle,
                       initialValue: widget.index != null
                           ? Events.events[widget.index].name
-                          : '', //widget.eventName,
+                          : '',
                       textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
                         contentPadding:
@@ -129,7 +128,6 @@ class _AddEventState extends State<AddEvent> {
                       //textInputAction: TextInputAction.newline,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
-                      //controller: TextEditingController(text: _eventDesc),
                       initialValue: widget.index != null
                           ? Events.events[widget.index].description
                           : '', //widget.eventDesc,
@@ -142,8 +140,6 @@ class _AddEventState extends State<AddEvent> {
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         border: OutlineInputBorder(),
                       ),
-                      // validator: (val) =>
-                      //     val.isEmpty ? 'Event Name must not be empty.' : null,
                       onChanged: (val) {
                         setState(() => _eventDesc = val);
                       },
@@ -173,20 +169,17 @@ class _AddEventState extends State<AddEvent> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
                     child: DateTimeField(
-                      // controller:
-                      //     TextEditingController(text: _eventDate.toString()),
                       style: _textboxStyle,
                       initialValue: widget.index != null
                           ? Events.events[widget.index].date
-                          : DateTime.now(), //widget.eventDate,
+                          : DateTime.now(),
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
                           contentPadding:
                               EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                           border: OutlineInputBorder(),
                           labelText: 'Date',
-                          // ignore: deprecated_member_use
-                          hasFloatingPlaceholder: true),
+                          floatingLabelBehavior: FloatingLabelBehavior.auto),
                       format: DateFormat('EEEE MMMM d, yyyy.'),
                       onShowPicker: (context, currentValue) async {
                         var date = await showDatePicker(
@@ -215,22 +208,15 @@ class _AddEventState extends State<AddEvent> {
           onPressed: () async {
             if (_formKey.currentState.validate()) {
               if (widget.index == null) {
-                // _difference = await Events.getDifference(_eventDate ??
-                //     Events.events[widget.index].date /*widget.eventDate*/);
                 _event = Event(
                   name: _eventName,
                   description: _eventDesc ?? '',
                   date: _eventDate,
-                  //duration: _difference,
                 );
-                // print(_event.name);
-                // print(_event.date.toString());
                 Events().addEvent(_event);
                 Navigator.pushReplacementNamed(context, Routes.viewEvents,
                     arguments: Events.events.length - 1);
               } else {
-                // _difference = await Events.getDifference(_eventDate ??
-                //     Events.events[widget.index].date); //widget.eventDate);
                 setState(() {});
                 _event = Event(
                   name: _eventName ?? Events.events[widget.index].name,
@@ -238,13 +224,6 @@ class _AddEventState extends State<AddEvent> {
                       _eventDesc ?? Events.events[widget.index].description,
                   date: _eventDate ?? Events.events[widget.index].date,
                 );
-                // Event()
-                //   ..newName = _eventName ?? Events.events[widget.index].name
-                //   ..newDescription =
-                //       _eventDesc ?? Events.events[widget.index].description
-                //   ..newDate = _eventDate ?? Events.events[widget.index].date;
-                // duration: _difference,
-
                 Events().updateEvent(_event, widget.index);
                 Navigator.pushReplacementNamed(context, Routes.viewEvents,
                     arguments: widget.index);
