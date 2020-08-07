@@ -1,3 +1,4 @@
+import 'package:countdown_app/services/events.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -62,7 +63,9 @@ class _TimerWidgetState extends State<TimerWidget> {
           ),
         ),
         Text(
-          widget.dTime==null ? '${start % widget.division}':'${(start % widget.division / 7).toInt()}',
+          widget.dTime == null
+              ? '${start % widget.division}'
+              : '${(start % widget.division / 7).toInt()}',
           style: TextStyle(
             fontFamily: 'fantasy',
             fontStyle: FontStyle.italic,

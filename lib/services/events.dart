@@ -42,6 +42,82 @@ class Events {
   }
 }
 
+
+//  for (int _event in    .events) {
+//       if (_event.duration.inSeconds == 0 ||
+//           _event.date.isBefore(DateTime.now())) {
+//         showDialog(
+//           context: context,
+//           child: AlertDialog(
+//             title: Container(
+//               width: double.maxFinite,
+//               decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(100),
+//               ),
+//               child: Center(
+//                 child: Column(
+//                   children: <Widget>[
+//                     CircleAvatar(
+//                       radius: 100,
+//                       child: Icon(
+//                         Icons.event_available,
+//                         size: 150,
+//                         color: Colors.white,
+//                       ),
+//                     ),
+//                     SizedBox(height: 20),
+//                     Text(
+//                       'What would you like to do with this reminder?',
+//                       textAlign: TextAlign.center,
+//                     ),
+//                     SizedBox(height: 40),
+//                     Row(
+//                       children: <Widget>[
+//                         Container(
+//                           width: 110,
+//                           child: FlatButton(
+//                             onPressed: () {
+//                               Events().deleteEvent(_event);
+//                               Navigator.pop(context);
+//                             },
+//                             color: Colors.indigo,
+//                             child: Text(
+//                               'Delete \n Event',
+//                               textAlign: TextAlign.center,
+//                               style: TextStyle(color: Colors.white),
+//                             ),
+//                           ),
+//                         ),
+//                         Spacer(),
+//                         Container(
+//                           width: 110,
+//                           child: FlatButton(
+//                             color: Colors.indigo,
+//                             onPressed: () {
+//                               // Navigator.pushReplacementNamed(
+//                               //     context, Routes.addEvent,
+//                               //     arguments: index);
+//                             },
+//                             child: Text(
+//                               'Reschedule Event',
+//                               textAlign: TextAlign.center,
+//                               style: TextStyle(color: Colors.white),
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     )
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           )
+//         );
+//       }
+//     }
+
+
+
 // deletePage() {
 //   return Scaffold(
 //     appBar: AppBar(
