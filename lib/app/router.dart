@@ -17,37 +17,21 @@ class Router {
             builder: (context) => ListOfEvents(), settings: settings);
         break;
       case Routes.addEvent:
-        dynamic data = settings.arguments ?? {};
-        dynamic name = data['eventName'] ?? '';
-        dynamic desc = data['eventDescription'] ?? '';
-        dynamic date = data['eventDate'];
-        int index = data['index'];
+        int index = settings.arguments;
         return MaterialPageRoute(
-            builder: (context) => AddEvent(
-                  eventName: name,
-                  eventDate: date,
-                  eventDesc: desc,
-                  index: index,
-                ),
-            settings: settings);
+          builder: (context) => AddEvent(index: index),
+          settings: settings,
+        );
         break;
       case Routes.viewEvents:
-        dynamic data = settings.arguments;
-        String name = data['eventName'];
-        String desc = data['eventDescription'];
-        dynamic date = data['eventDate'];
-        int index = data['index'];
-        print('I amde my data $data');
+        int index = settings.arguments;
         return MaterialPageRoute(
-            builder: (context) => ViewEvent(
-              eventName: name,
-              eventDesc: desc,
-              eventDate: date,
-              index: index,
-            ), settings: settings);
+          builder: (context) => ViewEvent(index: index),
+          settings: settings,
+        );
         break;
       default:
-        errorPageRoute(settings.name);
+        return errorPageRoute(settings.name);
     }
   }
 }

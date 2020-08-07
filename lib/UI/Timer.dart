@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import '../services/events.dart';
 import 'dart:async';
 
 class TimerWidget extends StatefulWidget {
   final String title;
-  final double dTime;
+  final int dTime;
   final int time;
   final int division;
   final Duration duration;
@@ -64,7 +63,7 @@ class _TimerWidgetState extends State<TimerWidget> {
           ),
         ),
         Text(
-          '${start % widget.division.toInt()}',
+          widget.dTime==null ? '${start % widget.division}':'${(start % widget.division / 7).toInt()}',
           style: TextStyle(
             fontFamily: 'fantasy',
             fontStyle: FontStyle.italic,

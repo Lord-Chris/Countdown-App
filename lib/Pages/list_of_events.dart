@@ -2,30 +2,14 @@ import 'package:countdown_app/app/router.dart';
 import 'package:flutter/material.dart';
 import 'package:countdown_app/services/events.dart';
 import '../UI/Timer.dart';
-import 'package:intl/intl.dart';
 
 class ListOfEvents extends StatefulWidget {
   @override
   _ListOfEventsState createState() => _ListOfEventsState();
 }
 
-class _ListOfEventsState extends State<ListOfEvents>
-    with SingleTickerProviderStateMixin {
-  void loadStorage() {
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadStorage();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
+class _ListOfEventsState extends State<ListOfEvents> {
+  //TODO: Imlement pop uo dialog and notification
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,17 +32,16 @@ class _ListOfEventsState extends State<ListOfEvents>
               image: AssetImage('assets/light.png'), fit: BoxFit.cover),
         ),
         child: ListView.builder(
-          itemCount: name.length,
+          itemCount: Events.events.length,
           itemBuilder: (context, index) {
+            //_reload ? reload() : print('object');
             //print(duration[index].inHours);
-            if (duration[index].inHours < 0) {
-              Events.deleteEvent(index);
-            }
+            // if (duration[index].inHours < 0) {
+            //   Events().deleteEvent2(index);
+            // } //TODO: implement correct delete function
 
-            // print({duration[index].inDays/7}.toString().substring(1,2));
-            // print(name);
             // print(date);
-            print(duration);
+            //print(Events.events[index].duration.inDays);
             return Card(
               elevation: 0.0,
               child: Column(
@@ -68,25 +51,19 @@ class _ListOfEventsState extends State<ListOfEvents>
                         icon: Icon(Icons.delete),
                         onPressed: () {
                           setState(() {
-                            Events.deleteEvent(index);
+                            Events().deleteEvent(index);
                           });
                         }),
                     onTap: () async {
-                      await Navigator.pushNamed(context, Routes.viewEvents,
-                          arguments: {
-                            'eventName': name[index],
-                            'eventDescription': des[index],
-                            'eventDate': date[index],
-                            'index': index
-                          });
-                      setState(() {});
+                      Navigator.pushNamed(context, Routes.viewEvents,
+                          arguments: index);
                     },
                     title: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Text(
-                          name[index],
+                          Events.events[index].name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
@@ -106,33 +83,33 @@ class _ListOfEventsState extends State<ListOfEvents>
                               ),
                             ),
                             Spacer(),
-                            // Expanded(
-                            //   child: TimerWidget(
-                            //     title:'Wks',
-                            //     dTime: duration[index].inDays / 7,
-                            //     division: 24*7,
-                            //     duration: Duration(days: 7),
-                            //   ),
-                            // ),
+                            Expanded(
+                              child: TimerWidget(
+                                title: 'Wks',
+                                dTime: Events.events[index].duration.inDays,
+                                division: 168,
+                                duration: Duration(days: 7),
+                              ),
+                            ),
                             Expanded(
                               child: TimerWidget(
                                 title: 'Days',
-                                time: duration[index].inDays,
+                                time: Events.events[index].duration.inDays,
                                 division: 24,
                                 duration: Duration(days: 1),
                               ),
                             ),
                             Expanded(
                               child: TimerWidget(
-                                title: 'Hours',
-                                time: duration[index].inHours,
+                                title: 'Hrs',
+                                time: Events.events[index].duration.inHours,
                                 division: 60,
                                 duration: Duration(hours: 1),
                               ),
                             ),
                             TimerWidget(
                               title: 'Secs',
-                              time: duration[index].inSeconds,
+                              time: Events.events[index].duration.inSeconds,
                               division: 60,
                               duration: Duration(seconds: 1),
                             ),

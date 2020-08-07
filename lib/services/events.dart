@@ -1,92 +1,90 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 List<String> name = [];
 List<String> des = [];
 List<DateTime> date = [];
 List<Duration> duration = [];
 
+class Event {
+  String name;
+  String description;
+  DateTime date;
+  // Duration _duration;
+
+  Event({this.name, this.description, this.date});
+  
+  set duration(_date) {
+    _date = date;
+  }
+
+  Duration get duration => date.difference(DateTime.now());
+
+  set newName(String newName) => name = newName;
+  set newDescription(String desc) => description = desc;
+  set newDate(DateTime newDate) => date = newDate;
+}
+
 class Events {
-  static Future<Duration> getDifference(DateTime a) async{
-    //DateTime eventDate = DateFormat('yyyy MM d').parse(a.toString().substring(0,10));
-    DateTime currentDate = DateTime.now();
-    Duration difference = a.difference(currentDate);
-    return difference;
+  static List<Event> events = [];
+
+  void addEvent(Event event) {
+    events.add(event);
   }
 
-  static Future<void> addEvent({n, de, da, du, index}) async{
-    name.add(n);
-    des.add(de);
-    date.add(da);
-    duration.add(du);
-    //print(name.length);
+  void updateEvent(Event event, int index) {
+    events[index] = event;
   }
 
-  static Future<void> updateEvent({n, de, da, du, index}) async{
-    name[index] = n;
-    des[index] = de;
-    date[index] = da;
-    duration[index] = du;
-    //print('$name, $des, $date, $index');
+  void deleteEvent(int index) {
+    events.removeAt(index);
   }
 
-  static Future<void> deleteEvent(index) async{
-    name.remove(name[index]);
-    des.remove(des[index]);
-    date.remove(date[index]);
-    duration.remove(duration[index]);
-  }
-
-  static Future<int> getIndex({n})async {
-    int index;
-    index = name.length;
-    print(index);
+  int getIndex() {
+    int index = events.length;
     return index;
   }
 }
 
-deletePage() {
-  return Scaffold(
-    appBar: AppBar(
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back),
-        onPressed: () {},
-      ),
-      title: Text('Select Events to delete'),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.delete_forever),
-          onPressed: () {},
-        )
-      ],
-    ),
-    body: Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/light.png'), fit: BoxFit.cover),
-      ),
-      child: ListView.builder(
-        itemCount: name.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: IconButton(
-                    icon: Checkbox(),
-                  ),
-                  title: Text(
-                    name[index],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    ),
-  );
-}
+// deletePage() {
+//   return Scaffold(
+//     appBar: AppBar(
+//       leading: IconButton(
+//         icon: Icon(Icons.arrow_back),
+//         onPressed: () {},
+//       ),
+//       title: Text('Select Events to delete'),
+//       actions: <Widget>[
+//         IconButton(
+//           icon: Icon(Icons.delete_forever),
+//           onPressed: () {},
+//         )
+//       ],
+//     ),
+//     body: Container(
+//       decoration: BoxDecoration(
+//         image: DecorationImage(
+//             image: AssetImage('assets/light.png'), fit: BoxFit.cover),
+//       ),
+//       child: ListView.builder(
+//         itemCount: name.length,
+//         itemBuilder: (context, index) {
+//           return Card(
+//             child: Column(
+//               children: <Widget>[
+//                 ListTile(
+//                   leading: IconButton(
+//                     icon: Checkbox(),
+//                   ),
+//                   title: Text(
+//                     name[index],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           );
+//         },
+//       ),
+//     ),
+//   );
+// }
 
 /*
 
